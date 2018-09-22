@@ -1,0 +1,73 @@
+DrawerLayout   
+
+DrawerLayout是Support Library包中实现了侧滑菜单效果的控件，可以说drawerLayout是因为第三方控件如MenuDrawer等的出现之后，google借鉴而出现的产物。
+drawerLayout的使用很方便，使用drawerLayout的要点如下：
+好处  
+简洁 高效  占用屏幕少
+
+特点
+
+drawerLayout分为侧边菜单和主内容区两部分
+抽屉里的宽度不能超过320 dp, 所以用户总是可以看到主要内容视图的一部分
+
+注意   侧滑菜单滑动时  内容区域不动
+
+适合  
+容器控件开发
+
+比如   边界有  变化 的
+子控件随手势有动画效果
+
+
+
+
+1.drawerLayout其实是一个布局控件，跟LinearLayout等控件是一种东西，但是drawerLayout带有滑动的功能。只要按照drawerLayout的规定布局方式写完布局，就能有侧滑的效果。
+
+比较简洁  高效
+占用少量屏幕，达到用户需要用时  拖出即可，不需要用时 放进去
+
+
+drawerLayout分为侧边菜单和主内容区两部分，侧边菜单可以根据手势展开与隐藏（drawerLayout自身特性），主内容区的内容可以随着菜单的点击而变化（这需要使用者自己实现）。
+
+
+
+  抽屉视图指定其宽度用dp单位和高度匹配父视图。抽屉里的宽度不能超过320 dp, 所以用户总是可以看到主要内容视图的一部分
+----------------------------------------------------------------------------------------------------------------------------
+。
+先 MyDrawBgView 贝塞尔曲线绘制     MyDrawerLayout（遍历每个子控件  移除slideBar   添加背景控件）   MyDrawBgRealativeLayout（写入init方法）
+MyDrawerLayout(事件分发)   
+
+能不能用一个自定义控件去继承DrawLayout  达到目的（DrawLayout  是继承ViewGroup）
+
+
+职责  1  这样需要重写onLayout  方法，需要摆放子空间，摆放的方式和Linerlayout一样
+职责  2  重写onDraw方法，当前控件继承自ViewGroup  绘制背景的同时需要遍历绘制子控件
+(注意：在onDraw方法上  容器类并不一定会去调用，容器本事没有任何内容需要绘制，严格意义上讲  是重写dispatchOnDraw方法，这样会导致  需要为每个子控件进行绘制)
+职责  3  事件 
+重写onDraw方法，给每个子控件绘制，计算背景区域，重写分发事件
+
+所有的柔和在一起  
+
+
+
+职责分明
+
+摆放交给 Linerlayout 
+
+背景绘制交个自定义View实现
+
+触摸事件 交给自定义DrawLayout 实现
+
+
+摆放交给 Linerlayout 实现 （这里能不能 重写继承与Linerlayout  onDraw方法呢，因为要实现背景就必须重写onDraw）（要有公主命，不要有公主病，要有Linerlayout 的线性摆放功能，又要有reativlayout让子类填充父布局，可以来做背景，而又不影响其他子控件的功能）
+
+
+不能
+
+
+不能的话   背景交给谁来做呢 ，难道在 
+
+背景绘制交个自定义View实
+
+
+
